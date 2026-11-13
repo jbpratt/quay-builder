@@ -6,7 +6,7 @@ RUN dnf install -y --setopt=tsflags=nodocs git
 COPY . /go/src/
 
 RUN sed -i 's/CGO_ENABLED=0 /CGO_ENABLED=1 /;s/containers_image_openpgp/& strictfipsruntime/' /go/src/Makefile
-RUN cd /go/src/ && make build
+RUN cd /go/src/ && GOFLAGS=-mod=readonly make build
 
 FROM registry.redhat.io/ubi9/podman:latest
 
